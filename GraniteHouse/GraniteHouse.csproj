@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>aspnet-GraniteHouse-2F1D1ABA-9AF3-41F8-AE92-F138F64E6F02</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>
