@@ -39,5 +39,76 @@ namespace GraniteHouse.Areas.Admin.Controllers
             }
             return View(productTypes);
         }
+        //Get edit action methot/ 
+        public async Task<IActionResult> Edit(int?id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var productType = await _db.ProductTypes.FindAsync(id);
+            if (productType == null)
+            {
+                return NotFound();
+            }
+            return View(productType);
+        }
+        //Post edit action method
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id,ProductTypes productTypes)
+        {
+            if (id != productTypes.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                _db.Update(productTypes);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            return View(productTypes);
+        }
+        //Get detail action methot/ 
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var productType = await _db.ProductTypes.FindAsync(id);
+            if (productType == null)
+            {
+                return NotFound();
+            }
+            return View(productType);
+        }
+
+        //Get delete action methot/ 
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var productType = await _db.ProductTypes.FindAsync(id);
+            if (productType == null)
+            {
+                return NotFound();
+            }
+            return View(productType);
+        }
+        //Post  delete action method
+        [HttpPost,ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var productType = await _db.ProductTypes.FindAsync(id);
+            _db.ProductTypes.Remove(productType);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
