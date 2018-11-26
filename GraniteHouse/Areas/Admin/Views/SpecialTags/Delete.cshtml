@@ -1,0 +1,19 @@
+﻿@model GraniteHouse.Models.SpecialTags
+@{
+    ViewData["Title"] = "Edit";
+}
+<br />
+<h2 class="text-info">Edit Special Tag</h2>
+<form method="post" asp-action="Edit">
+
+
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" disabled />
+
+    </div>
+    <div>
+        <input type="submit"   class="btn btn-danger" asp-route-id="@Model.Id"value="Delete" />
+        <a asp-action="Index" class="btn btn-success">Back to Index</a>
+    </div>
+</form>
