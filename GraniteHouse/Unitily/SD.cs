@@ -7,7 +7,7 @@ namespace GraniteHouse.Unitily
 {
     public class SD
     {
-        public const string DefaultProductImage = "default_product.jpg";
-        public string ImageFolder = @"images\ProductImage";
+        public const string DefaultProductImage = "default_product.png";
+        public const string ImageFolder = @"images\ProductImage";
     }
 }
