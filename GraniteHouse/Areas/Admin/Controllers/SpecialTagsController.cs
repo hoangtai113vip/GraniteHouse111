@@ -5,29 +5,29 @@ using System.Threading.Tasks;
 using GraniteHouse.Data;
 using GraniteHouse.Models;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
 namespace GraniteHouse.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class SpecialTagsController : Controller
     {
-        private ApplicationDbContext _db;
+        private readonly ApplicationDbContext _db;
         public SpecialTagsController(ApplicationDbContext db)
         {
             _db = db;
         }
         public IActionResult Index()
         {
-            
             return View(_db.SpecialTags.ToList());
         }
-        // Get Create SpecialTag method
+        //GET Create Action Method
         public IActionResult Create()
         {
             return View();
         }
-        //Post create SpecialTags method
+        //POST Create action Method
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(SpecialTags specialTags)
         {
             if (ModelState.IsValid)
@@ -38,24 +38,24 @@ namespace GraniteHouse.Areas.Admin.Controllers
             }
             return View(specialTags);
         }
-        // Get Edit SpecialTag method
+        //GET Edit Action Method
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var specialTag = await _db.SpecialTags.FindAsync(id);
-            if (specialTag == null)
+            var specialTags = await _db.SpecialTags.FindAsync(id);
+            if (specialTags == null)
             {
                 return NotFound();
             }
-            return View(specialTag);
+            return View(specialTags);
         }
-        //Post create SpecialTags method
+        //POST Edit action Method
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,SpecialTags specialTags)
+        public async Task<IActionResult> Edit(int id, SpecialTags specialTags)
         {
             if (id != specialTags.Id)
             {
@@ -69,48 +69,43 @@ namespace GraniteHouse.Areas.Admin.Controllers
             }
             return View(specialTags);
         }
-        public async Task<IActionResult> Detail(int? id)
+        //GET Details Action Method
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var specialTag = await _db.SpecialTags.FindAsync(id);
-            if (specialTag == null)
+            var specialTags = await _db.SpecialTags.FindAsync(id);
+            if (specialTags == null)
             {
                 return NotFound();
             }
-            return View(specialTag);
+            return View(specialTags);
         }
-        // get delete
+        //GET Delete Action Method
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var specialTag = await _db.SpecialTags.FindAsync(id);
-            if (specialTag == null)
+            var specialTags = await _db.SpecialTags.FindAsync(id);
+            if (specialTags == null)
             {
                 return NotFound();
             }
-            return View(specialTag);
-
-       
-    }
-        // post delete
-        [HttpPost,ActionName("Delete")]
-        [ValidateAntiForgeryTokenAttribute]
+            return View(specialTags);
+        }
+        //POST Delete action Method
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var specialTag = await _db.SpecialTags.FindAsync(id);
-            _db.SpecialTags.Remove(specialTag);
+            var specialTags = await _db.SpecialTags.FindAsync(id);
+            _db.SpecialTags.Remove(specialTags);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-
-
         }
-        
-
-        }
+    }
 }

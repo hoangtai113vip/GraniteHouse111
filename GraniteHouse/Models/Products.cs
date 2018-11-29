@@ -22,9 +22,9 @@ namespace GraniteHouse.Models
         [ForeignKey("ProductTypeId")]
         public virtual ProductTypes ProductTypes { get; set; }
         [Display(Name = "Special Tag")]
-        public int SpecialTagId { get; set; }
+        public int SpecialTagsID { get; set; }
 
-        [ForeignKey("ProductTypeId")]
+        [ForeignKey("SpecialTagsID")]
         public virtual SpecialTags  SpecialTags  { get; set; }
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace GraniteHouse.Controllers
+namespace GraniteHouse.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ProductsController : Controller
@@ -60,6 +60,7 @@ namespace GraniteHouse.Controllers
             }
             _db.Products.Add(ProductsVM.Products);
             await _db.SaveChangesAsync();
+
             // image being saved
             string webRootPath = _hostingEnvironment.WebRootPath;
             var files = HttpContext.Request.Form.Files;
@@ -67,10 +68,10 @@ namespace GraniteHouse.Controllers
             if (files.Count != 0)
             {
                 //image has been uploaded
-                var upload = Path.Combine(webRootPath, SD.ImageFolder);
+                var uploads = Path.Combine(webRootPath, SD.ImageFolder);
                 var extension = Path.GetExtension(files[0].FileName);
 
-                using (var filestream = new FileStream(Path.Combine(upload, ProductsVM.Products.Id + extension), FileMode.Create))
+                using (var filestream = new FileStream(Path.Combine(uploads, ProductsVM.Products.Id + extension), FileMode.Create))
                 {
                     files[0].CopyTo(filestream);
                 }
