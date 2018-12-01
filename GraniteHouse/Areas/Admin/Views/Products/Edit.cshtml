@@ -8,7 +8,9 @@
 <h2 class="text-info">Edit Product</h2>
 <form method="post" enctype="multipart/form-data">
     <div class="p-4 border rounded row">
-       
+        <input hidden asp-for="Products.Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-8">
         <div class="form-group row">
             <div class="col-4">
                 <label asp-for="Products.Name"></label>

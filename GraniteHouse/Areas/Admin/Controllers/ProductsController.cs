@@ -184,5 +184,32 @@ namespace GraniteHouse.Areas.Admin.Controllers
             return View(ProductsVM);
         }
 
+        //Post delete Product
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDelete(int Id)
+        {
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            Products products = await _db.Products.FindAsync(Id);
+            if (products == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var uploads = Path.Combine(webRootPath, SD.ImageFolder);
+                var extension = Path.GetExtension(products.Image);
+                if (System.IO.File.Exists(Path.Combine(uploads, products.Id + extension)))
+                {
+                    System.IO.File.Delete(Path.Combine(uploads, products.Id + extension));
+                }
+                _db.Products.Remove(products);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+
+            }
+        }
+
     }
 }
