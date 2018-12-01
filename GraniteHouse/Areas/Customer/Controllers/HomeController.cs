@@ -59,5 +59,18 @@ namespace GraniteHouse.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult Remove(int id)
+        {
+            List<int> lstShoppingCart = HttpContext.Session.Get<List<int>>("ssShoppingCart");
+            if (lstShoppingCart.Count > 0)
+            {
+                if (lstShoppingCart.Contains(id))
+                {
+                    lstShoppingCart.Remove(id);
+                }
+            }
+            HttpContext.Session.Set("ssShoppingCart", lstShoppingCart);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
