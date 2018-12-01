@@ -41,6 +41,14 @@ namespace GraniteHouse
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Add session 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);// lifetime 30 minutes
+                options.Cookie.HttpOnly = true;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +70,7 @@ namespace GraniteHouse
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-
+            app.UseSession();//add session
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
