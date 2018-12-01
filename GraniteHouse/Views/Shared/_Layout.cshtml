@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@using GraniteHouse.Extensions
+@using GraniteHouse.Unitily
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -26,7 +33,29 @@
                <ul class="navbar-nav mr-auto">
                    <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="ProductTypes" asp-area="Admin">Product Type</a></li>
                    <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="SpecialTags" asp-area="Admin">Special Tags</a></li>
-                   <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="Products" asp-area="Admin" >Products</a></li>
+                   <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="Products" asp-area="Admin">Products</a></li>
+                   @if (HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssShoppingCart") != null)
+                   {
+                       <li style="color:white">
+                           <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="nav-link">
+                               <i class="fas fa-shopping-cart"></i> &nbsp;
+                               @{
+                                   var count = HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssShoppingCart").Count;
+                               }
+                               (@count)
+                           </a>
+                       </li>
+                   }
+                   else
+                   {
+                       <li style="color:white">
+                           <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="nav-link">
+                               <i class="fas fa-shopping-cart"></i> &nbsp;
+
+                               (0)
+                           </a>
+                       </li>
+                   }
                </ul>
               
            </div>
