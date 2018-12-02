@@ -44,5 +44,52 @@ namespace GraniteHouse.Areas.Customer.Controllers
             
             
         }
+        //post action index
+        [HttpPost, ActionName("Index")]
+        [ValidateAntiForgeryToken]
+        public IActionResult IndexPost()
+        {
+            List<int> lstCartItems = HttpContext.Session.Get<List<int>>("ssShoppingCart");
+            ShoppingCartVM.Appointments.AppointmentDate = ShoppingCartVM.Appointments.AppointmentDate.AddHours(ShoppingCartVM.Appointments.AppointmentTime.Hour).
+                AddMinutes(ShoppingCartVM.Appointments.AppointmentTime.Minute);
+            Appointments appointments = ShoppingCartVM.Appointments;
+            _db.Appointments.Add(appointments);
+            _db.SaveChanges();
+
+            int appointmentId = appointments.Id;
+
+            foreach(int productId in lstCartItems)
+            {
+                ProductsSelectedForAppointment productsSelectedForAppointment = new ProductsSelectedForAppointment()
+                {
+                    AppointmentId = appointmentId,
+                    ProductId = productId
+                };
+
+                _db.ProductsSelectedForAppointments.Add(productsSelectedForAppointment);
+            }
+            _db.SaveChanges();
+
+            lstCartItems = new List<int>();
+
+            HttpContext.Session.Set("ssShoppingCart", lstCartItems);
+            return RedirectToAction("Index");
+
+        }
+
+    //remove 
+    public IActionResult Remove(int id)
+        {
+            List<int> lstItemCart = HttpContext.Session.Get<List<int>>("ssShoppingCart");
+            if (lstItemCart.Count > 0)
+            {
+                if (lstItemCart.Contains(id))
+                {
+                    lstItemCart.Remove(id);
+                    HttpContext.Session.Set("ssShoppingCart", lstItemCart);
+                }
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

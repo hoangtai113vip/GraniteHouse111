@@ -51,7 +51,7 @@ f<form method="post">
                                     @Html.DisplayFor(c => item.ProductTypes.Name)
                                 </td>
                                 <td style="text-align:center">
-                                    <button type="submit" class="btn btn-danger" asp-controller="Home" asp-area="Customer" asp-action="remove" asp-route-id="@item.Id">
+                                    <button type="submit" class="btn btn-danger" asp-action="remove" asp-route-id="@item.Id">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </td>

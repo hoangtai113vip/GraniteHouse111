@@ -20,9 +20,16 @@ namespace GraniteHouse.Controllers
             _db = db;
 
         }
-        public async Task<IActionResult> Index(string bien)
+        public async Task<IActionResult> Index()
         {
-            
+            List<int> lstShoppingCart = HttpContext.Session.Get<List<int>>("ssShoppingCart");
+            if (lstShoppingCart == null)
+            {
+                lstShoppingCart = new List<int>();
+                HttpContext.Session.Set("ssShoppingCart", lstShoppingCart);
+            }
+           
+           
 
             var productList = _db.Products.Include(m => m.ProductTypes).Include(m => m.SpecialTags);
            
