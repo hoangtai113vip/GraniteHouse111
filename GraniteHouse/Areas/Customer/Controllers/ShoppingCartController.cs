@@ -38,8 +38,11 @@ namespace GraniteHouse.Areas.Customer.Controllers
                     Products prod = _db.Products.Include(m => m.SpecialTags).Include(m => m.ProductTypes).Where(m => m.Id == cartItem).FirstOrDefault();
                     ShoppingCartVM.Products.Add(prod);
                 }
+              
             }
             return View(ShoppingCartVM);
+            
+            
         }
     }
 }
