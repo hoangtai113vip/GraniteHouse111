@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace GraniteHouse.Models
 {
-    public class Appoitments
+    public class Appointments
     {
         public int Id { get; set; }
-        public DateTime AppoimentDate { get; set; }
+        public DateTime AppointmentDate { get; set; }
 
         [NotMapped]
-        public DateTime AppoitmentTime { get; set; }
+        public DateTime AppointmentTime { get; set; }
 
-        public string CustormerName { get; set; }
-        public string CustormerPhoneNumber { get; set; }
-        public string CustormerEmail { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerPhoneNumber { get; set; }
+        public string CustomerEmail { get; set; }
         public bool isConfirmed { get; set; }
 
     }

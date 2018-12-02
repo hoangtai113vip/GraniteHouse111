@@ -8,6 +8,6 @@ namespace GraniteHouse.Models.ViewModel
     public class ShoppingCartViewModel
     {
         public List<Products> Products { get; set; }
-        public Appoitments Appoitments { get; set; }
+        public Appointments Appointments { get; set; }
     }
 }
