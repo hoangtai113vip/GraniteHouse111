@@ -35,10 +35,14 @@
            <a class="navbar-brand" asp-controller="Home" asp-action="Index" asp-area="Customer">Granite House</a>
            <div class="collapse navbar-collapse">
                <ul class="navbar-nav mr-auto">
-                   <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="ProductTypes" asp-area="Admin">Product Type</a></li>
+                   <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="Customer">Product Type</a></li>
+
+                   @if (User.IsInRole(SD.SuperAdminEndUser))
+                   {                    <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="ProductTypes" asp-area="Admin">Product Type</a></li>
                    <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="SpecialTags" asp-area="Admin">Special Tags</a></li>
                    <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="Products" asp-area="Admin">Products</a></li>
                    <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="AdminUsers" asp-area="Admin">Admin Users</a></li>
+                   }
                    @if (HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssShoppingCart") != null)
                    {
                        <li style="color:white">
